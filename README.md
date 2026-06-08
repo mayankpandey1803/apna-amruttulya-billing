@@ -14,3 +14,17 @@ This is a dynamic and responsive Billing and Management System designed to autom
 * **Frontend:** HTML5, CSS3, JavaScript (Bootstrap for responsive UI)
 * **Backend:** PHP (Object-Oriented Architecture)
 * **Database:** MySQL
+
+### 📷 Screenshots
+
+#### 👑 Malik (Owner) Dashboard
+This main panel allows the owner to track real-time counter sales, daily expenses, net profit, and total remaining stock 24/7 from anywhere.
+![Owner Dashboard](7ec83660-7d21-4426-8568-46caf5f33111)
+
+#### 📋 Counter & Stock Panel (Staff View)
+The operational view for staff members to enter daily expenses and check current inventory levels instantly.
+![Staff Dashboard 1](5318d1f4-09f8-409e-bb04-068e28d727b7)
+
+#### ☕ Counter Billing & Order System
+The core interface used at the counter to select items, enter customer details, and generate instant thermal receipts.
+![Staff Dashboard 2](fcb18b61-e9a2-4644-93e7-f5359423a795)
