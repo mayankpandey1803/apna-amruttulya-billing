@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apna Amruttulya - Billing System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            /* Background Logo Styling */
+            background-image: url('logo.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            background-size: 300px;
+            background-color: rgba(244, 244, 244, 0.95);
+            background-blend-mode: lighten;
+        }
+        h1 { color: #8B4513; text-align: center; }
+        .container { display: flex; justify-content: space-between; max-width: 900px; margin: 0 auto; }
+        .menu, .bill-area { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+            width: 45%; 
+        }
+        .menu-item { display: flex; justify-content: space-between; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #ddd; }
+        button { background-color: #8B4513; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+        button:hover { background-color: #A0522D; }
+        .total { font-size: 1.2rem; font-weight: bold; margin-top: 20px; color: #333; }
+    </style>
+</head>
+<body>
+
+    <h1>Apna Amruttulya - Smart Billing</h1>
+    <div class="container">
+        <div class="menu">
+            <h3>Menu Card</h3>
+            <div class="menu-item">
+                <span>Regular Chai (₹10)</span>
+                <button onclick="addToBill('Regular Chai', 10)">Add</button>
+            </div>
+            <div class="menu-item">
+                <span>Masala Chai (₹15)</span>
+                <button onclick="addToBill('Masala Chai', 15)">Add</button>
+            </div>
+            <div class="menu-item">
+                <span>Bun Maska (₹30)</span>
+                <button onclick="addToBill('Bun Maska', 30)">Add</button>
+            </div>
+            <div class="menu-item">
+                <span>Doodh (₹40)</span>
+                <button onclick="addToBill('Doodh', 40)">Add</button>
+            </div>
+        </div>
+
+        <div class="bill-area">
+            <h3>Current Bill</h3>
+            <ul id="bill-items"></ul>
+            <div class="total">Total: ₹<span id="total-price">0</span></div>
+            <br>
+            <button onclick="clearBill()" style="background-color: #d9534f;">Clear Bill</button>
+        </div>
+    </div>
+
+    <script>
+        let total = 0;
+        function addToBill(item_name, price) {
+            let formData = new FormData();
+            formData.append('item_name', item_name);
+            formData.append('price', price);
+
+            fetch('insert.php', { method: 'POST', body: formData })
+            .then(response => response.text())
+            .then(data => {
+                if (data.trim() === "Success") {
+                    let ul = document.getElementById("bill-items");
+                    let li = document.createElement("li");
+                    li.appendChild(document.createTextNode(`${item_name} - ₹${price}`));
+                    ul.appendChild(li);
+                    total += price;
+                    document.getElementById("total-price").innerText = total;
+                } else {
+                    alert(data);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function clearBill() {
+            document.getElementById("bill-items").innerHTML = "";
+            total = 0;
+            document.getElementById("total-price").innerText = total;
+        }
+    </script>
+</body>
+</html>
